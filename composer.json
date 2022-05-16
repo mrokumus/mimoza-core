@@ -1,0 +1,17 @@
+{
+    "name": "mrt/mimoza-core",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mrt\\MimozaCore\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mrokumus",
+            "email": "okumusmr@gmail.com"
+        }
+    ],
+    "require": {}
+}
