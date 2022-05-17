@@ -1,17 +1,31 @@
 {
-    "name": "mrt/mimoza-core",
-    "type": "package",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Mrt\\MimozaCore\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "mrokumus",
-            "email": "okumusmr@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "mrt/mimoza-core",
+  "type": "package",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Mrt\\MimozaCore\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "mrokumus",
+      "email": "okumusmr@gmail.com"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^6.6",
+    "nesbot/carbon": "^2.58",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "verot/class.upload.php": "^2.1",
+    "ext-curl": "*",
+    "ext-ctype": "*",
+    "ext-gd": "*"
+  }
+  ,
+  "require-dev": {
+    "filp/whoops": "^2.14",
+    "roave/security-advisories": "dev-latest"
+  }
 }
