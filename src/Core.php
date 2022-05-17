@@ -79,9 +79,17 @@ class Core
 		return SITE_URL . '/vendor/' . $url;
 	}
 
-	public function url($url = ''): string
+	public function urlWithoutLanguage($url = ''): string
 	{
-		return SITE_URL . '/' . $_SESSION['lang'] . '/' . $url;
+		return SITE_URL . '/' . $url;
+	}
+
+	public function url(string $url = ""): string
+	{
+		if (defined("MULTIPLE_LANGUAGE")) {
+			return SITE_URL . "/" . $_SESSION["lang"] . "/" . $url;
+		}
+		return SITE_URL . "/" . $url;
 	}
 
 	/**
