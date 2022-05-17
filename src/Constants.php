@@ -445,5 +445,70 @@ class Constants
 			],
 		],
 	];
+	public const pageLinkNoListController = [
+		"admin",
+		"ajax",
+		"contact-api",
+		"forgot-password",
+		"giris",
+		"hesap-dogrulama",
+		"logout",
+		"profil",
+		"sifremi-unuttum",
+		"site-bakimda",
+		"iletisim"
+	];
+	public const systemLinkPrefix = [
+		"content_prefix_" => [
+			"title" => "İçerik Linki",
+			"controller" => "content",
+		],
+		"search_prefix_" => [
+			"title" => "Arama Linki",
+			"controller" => "search",
+		],
+		"slider_prefix_" => [
+			"title" => "Slider Linki",
+			"controller" => "slider"
+		],
+		"iletisim_prefix_" => [
+			"title" => "İletişim Linki",
+			"controller" => "contact",
+		],
+		"profile_prefix_" => [
+			"title" => "Profil Linki",
+			"controller" => "profile",
+		],
+		"giris_prefix_" => [
+			"title" => "Giriş Linki",
+			"controller" => "login",
+		],
+		"sifremi_unutum_prefix_" => [
+			"title" => "Şifremi unuttum",
+			"controller" => "forgot-password",
+		],
+		"sifre_yenile_prefix_" => [
+			"title" => "Şifre Yenileme Linki",
+			"controller" => "password-reset",
+		],
+		"uye_ol_prefix_" => [
+			"title" => "Üye Olma",
+			"controller" => "sign-up",
+		],
+		"hesap_dogrulama_prefix_" => [
+			"title" => "Hesap Doğrulama",
+			"controller" => "account-activate",
+		],
+	];
+	public const allowedSpecialHtmlPost = [];
+	public function __construct($langData)
+	{
+		foreach ($langData as $langRow) {
+			$this->allowedSpecialHtmlPost[] = "text_" . $langRow->short_lang;
+			$this->allowedSpecialHtmlPost[] = "abstract_" . $langRow->short_lang;
+			$this->allowedSpecialHtmlPost[] = "site_bakimda_aciklama_" . $langRow->short_lang;
+			$this->allowedSpecialHtmlPost[] = "404_page_text_" . $langRow->short_lang;
+		}
 
+	}
 }
