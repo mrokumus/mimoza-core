@@ -2,8 +2,6 @@
 
 namespace Mrt\MimozaCore;
 
-use const Mrt\MimozaCore\Core\ROOT_PATH;
-
 class View
 {
 

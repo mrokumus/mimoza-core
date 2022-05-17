@@ -3,7 +3,6 @@
 namespace Mrt\MimozaCore;
 
 
-
 use Exception;
 
 class Session
