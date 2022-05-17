@@ -500,6 +500,8 @@ class Constants
 			"controller" => "account-activate",
 		],
 	];
+
+	// TODO:: allowedSpecialHtmlPost düzenlemesi yap
 	public const allowedSpecialHtmlPost = [];
 	public function __construct($langData)
 	{
