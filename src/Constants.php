@@ -500,17 +500,4 @@ class Constants
 			"controller" => "account-activate",
 		],
 	];
-
-	// TODO:: allowedSpecialHtmlPost düzenlemesi yap
-	public const allowedSpecialHtmlPost = [];
-	public function __construct($langData)
-	{
-		foreach ($langData as $langRow) {
-			$this->allowedSpecialHtmlPost[] = "text_" . $langRow->short_lang;
-			$this->allowedSpecialHtmlPost[] = "abstract_" . $langRow->short_lang;
-			$this->allowedSpecialHtmlPost[] = "site_bakimda_aciklama_" . $langRow->short_lang;
-			$this->allowedSpecialHtmlPost[] = "404_page_text_" . $langRow->short_lang;
-		}
-
-	}
 }

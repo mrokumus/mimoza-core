@@ -77,6 +77,7 @@ class View
 		global $projectLanguages;
 		global $form;
 		global $admin_text;
+		global $constants;
 
 		$data['theme'] = $_SESSION['theme'];
 		$data['view'] = self::backendView($view);
@@ -92,7 +93,7 @@ class View
 	 */
 	public static function backendView(string $view): string
 	{
-		return ROOT_PATH . '/admin/View/proje/' . $view . '.php';
+		return ROOT_PATH . '/admin/View/project/' . $view . '.php';
 	}
 
 }
