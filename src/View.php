@@ -59,6 +59,9 @@ class View
 			$_SESSION['theme'] = 'light-layout';
 		}
 
+		// TODO:: değiştir
+		require ROOT_PATH . "/includes/Statics/Admin.php";
+
 		global $metaTag;
 		global $functions;
 		global $settings;
