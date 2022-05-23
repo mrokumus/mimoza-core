@@ -76,7 +76,7 @@ class Core
 	 */
 	public function adminPublicUrl(string $url = ''): string
 	{
-		return SITE_URL . '/vendor/' . $url;
+		return SITE_URL . '/vendor/ozansonar/mimoza-panel-file/' . $url;
 	}
 
 	public function urlWithoutLanguage($url = ''): string
