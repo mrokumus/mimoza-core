@@ -33,17 +33,19 @@ class AdminForm
 	{
 		$this->functions = new Functions();
 	}
-
 	/**
 	 * It's return HTML input according to giving options
 	 *
 	 * @param string $name
 	 * @param array $item
-	 * @param array|null $data
+	 * @param array|object|null $data
 	 * @return string
 	 */
-	public function input(string $name, array $item = [], array $data = null): string
+	public function input(string $name, array $item = [], $data = null): string
 	{
+		if (is_array($data)) {
+			$data = (object)$data;
+		}
 		$name_lang = !empty($this->lang) && empty($this->formNameWithoutLangCode) ? $name . "_" . $this->lang : $name;
 		$type = $item["type"] ?? "text";
 		$item_hidden = $item["item_hidden"] ?? null;
@@ -55,9 +57,9 @@ class AdminForm
 		$disabled = isset($item["disabled"]) && (int)$item["disabled"] === 1 ? "disabled" : null;
 		$class = $item["class"] ?? null;
 		if (!empty($this->lang)) {
-			$value = !empty($data) && isset($data[$this->lang][$name]) ? $data[$this->lang][$name] : null;
+			$value = !empty($data) && isset($data->{$this->lang}[$name]) ? $data->{$this->lang}[$name] : null;
 		} else {
-			$value = !empty($data) && isset($data[$name]) ? $data[$name] : null;
+			$value = !empty($data) && isset($data->{$name}) ? $data->{$name} : null;
 		}
 
 
@@ -144,12 +146,16 @@ class AdminForm
 	 */
 	public function select(string $name, array $item = [], $data = null): string
 	{
+		if (is_array($data)){
+			$data = (object)$data;
+		}
+
 		$brackets = isset($item['multiple']) ? '[]' : '';
 		$name_lang = !empty($this->lang) && empty($this->formNameWithoutLangCode) ? $name . "_" . $this->lang . $brackets : $name;
 		$label = isset($item["label"]) ? $item["label"] : null;
 		$multiple = isset($item["multiple"]) ? 'multiple="multiple"' : null;
 		$required = isset($item["required"]) && $item["required"] == 1 ? "required validate[required]" : null;
-		$value = !empty($data) && isset($data[$this->lang][$name]) ? $data[$this->lang][$name] : "-1";
+		$value = !empty($data) && isset($data->{$this->lang}[$name]) ? $data->{$this->lang}[$name] : "-1";
 		$html = '<div class="form-group">
                        <label for="id_' . $name . '">' . $label . '</label>
                        <select class="form-control select2bs4 ' . $required . '" ' . $multiple . ' name="' . $name_lang . '"  id="id_' . $name_lang . '" style="width: 100%;">
@@ -210,7 +216,6 @@ class AdminForm
 	 */
 	public function file(string $name, array $item = [], $data = null): string
 	{
-		$constants = new Constants();
 		$name_lang = !empty($this->lang) && empty($this->formNameWithoutLangCode) ? $name . "_" . $this->lang : $name;
 		$label = isset($item["label"]) ? $item["label"] : null;
 		$required = isset($item["required"]) && $item["required"] == 1 ? "required validate[required]" : null;
@@ -225,10 +230,10 @@ class AdminForm
                                 <label class="custom-file-label" for="id_img">Seç</label>
                             </div> 
                         </div>';
-		if (array_key_exists($file_key, $constants::fileTypePath) && isset($data[$this->lang][$name]) && !empty($data[$this->lang][$name]) && file_exists($fileTypePath[$file_key]["full_path"] . $data[$this->lang][$name])) {
+		if (array_key_exists($file_key, Constants::fileTypePath) && isset($data[$this->lang][$name]) && !empty($data[$this->lang][$name]) && file_exists(Constants::fileTypePath[$file_key]["full_path"] . $data[$this->lang][$name])) {
 
 			$html .= '<p class="mt-1">';
-			$html .= '<a href="' . $constants::fileTypePath[$file_key]["url"] . $data[$this->lang][$name] . '" data-toggle="lightbox" class="btn btn-info"> Resmi Gör (tıklayınız) <i class="fa fa-images"></i>';
+			$html .= '<a href="' . Constants::fileTypePath[$file_key]["url"] . $data[$this->lang][$name] . '" data-toggle="lightbox" class="btn btn-info"> Resmi Gör (tıklayınız) <i class="fa fa-images"></i>';
 			$html .= '</a>';
 			if (!empty($delete_link)) {
 				$html .= '<a href="' . $delete_link . '" class="btn btn-danger ml-2">Dosyayı SİL <i class="fa fa-trash"></i></a>';
