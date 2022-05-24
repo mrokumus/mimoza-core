@@ -210,7 +210,7 @@ class AdminForm
 	 */
 	public function file(string $name, array $item = [], $data = null): string
 	{
-		global $fileTypePath;
+		$constants = new Constants();
 		$name_lang = !empty($this->lang) && empty($this->formNameWithoutLangCode) ? $name . "_" . $this->lang : $name;
 		$label = isset($item["label"]) ? $item["label"] : null;
 		$required = isset($item["required"]) && $item["required"] == 1 ? "required validate[required]" : null;
@@ -225,10 +225,10 @@ class AdminForm
                                 <label class="custom-file-label" for="id_img">Seç</label>
                             </div> 
                         </div>';
-		if (array_key_exists($file_key, $fileTypePath) && isset($data[$this->lang][$name]) && !empty($data[$this->lang][$name]) && file_exists($fileTypePath[$file_key]["full_path"] . $data[$this->lang][$name])) {
+		if (array_key_exists($file_key, $constants::fileTypePath) && isset($data[$this->lang][$name]) && !empty($data[$this->lang][$name]) && file_exists($fileTypePath[$file_key]["full_path"] . $data[$this->lang][$name])) {
 
 			$html .= '<p class="mt-1">';
-			$html .= '<a href="' . $fileTypePath[$file_key]["url"] . $data[$this->lang][$name] . '" data-toggle="lightbox" class="btn btn-info"> Resmi Gör (tıklayınız) <i class="fa fa-images"></i>';
+			$html .= '<a href="' . $constants::fileTypePath[$file_key]["url"] . $data[$this->lang][$name] . '" data-toggle="lightbox" class="btn btn-info"> Resmi Gör (tıklayınız) <i class="fa fa-images"></i>';
 			$html .= '</a>';
 			if (!empty($delete_link)) {
 				$html .= '<a href="' . $delete_link . '" class="btn btn-danger ml-2">Dosyayı SİL <i class="fa fa-trash"></i></a>';
