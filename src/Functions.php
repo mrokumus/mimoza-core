@@ -24,12 +24,11 @@ class Functions
 	 */
 	public function dateLong($date): ?string
 	{
-		global $months;
 		if (empty($date)) {
 			return null;
 		}
 		$date = new DateTime($date);
-		return $date->format("d") . " " . $months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y");
+		return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y");
 	}
 
 	/**
@@ -44,9 +43,9 @@ class Functions
 		if (empty($date)) {
 			return null;
 		}
-		global $months;
+
 		$date = new DateTime($date);
-		return $date->format("d") . " " . $months[$_SESSION["lang"]]["short"][$date->format("m")] . ", " . $date->format("Y");
+		return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["short"][$date->format("m")] . ", " . $date->format("Y");
 	}
 
 	/**
@@ -58,8 +57,7 @@ class Functions
 	public function dateLongWithTime($date): string
 	{
 		$date = new DateTime($date);
-		global $months;
-		return $date->format("d") . " " . $months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y") . " " . $date->format("H") . ":" . $date->format("i");
+		return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y") . " " . $date->format("H") . ":" . $date->format("i");
 	}
 
 	/**

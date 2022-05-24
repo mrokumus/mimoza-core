@@ -55,10 +55,7 @@ class View
 	 */
 	public static function backend(string $view, array $data = null, string $layout = 'main')
 	{
-		if (!isset($_SESSION['theme'])) {
-			$_SESSION['theme'] = 'light-layout';
-		}
-
+	
 		// TODO:: değiştir
 		require ROOT_PATH . "/includes/Statics/Admin.php";
 
@@ -78,9 +75,10 @@ class View
 		global $editPermissionKey;
 		global $deletePermissionKey;
 		global $projectLanguages;
-		global $form;
 		global $admin_text;
 		global $constants;
+		$form = new AdminForm();
+
 
 		$data['theme'] = $_SESSION['theme'];
 		$data['view'] = self::backendView($view);
