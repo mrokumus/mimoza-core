@@ -81,7 +81,7 @@ class Functions
 	 */
 	public function cleaner($text): ?string
 	{
-		if ($text !== NULL) {
+		if (!empty($text)) {
 			$array = array('insert', 'update', 'union', '<script', 'alert', 'select', '*');
 			$text = str_replace($array, '', $text);
 			return htmlspecialchars(stripslashes(strip_tags(trim($text))));
@@ -95,7 +95,7 @@ class Functions
 	 */
 	public function cleanerTextarea($text): ?string
 	{
-		if ($text !== NULL) {
+		if (!empty($text)) {
 			return trim(str_replace(['insert', 'update', 'union', 'select', '*', '<script'], ['', '', '', '', '', ''], $text));
 		}
 		return NULL;
