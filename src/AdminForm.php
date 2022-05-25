@@ -217,11 +217,11 @@ class AdminForm
 	public function file(string $name, array $item = [], $data = null): string
 	{
 		$name_lang = !empty($this->lang) && empty($this->formNameWithoutLangCode) ? $name . "_" . $this->lang : $name;
-		$label = isset($item["label"]) ? $item["label"] : null;
-		$required = isset($item["required"]) && $item["required"] == 1 ? "required validate[required]" : null;
-		$file_key = isset($item["file_key"]) ? $item["file_key"] : null;
-		$show_image_label_text = isset($item["show_image_label_text"]) ? $item["show_image_label_text"] : "Mevcut Dosya ->";
-		$delete_link = isset($item["delete_link"]) ? $item["delete_link"] : null;
+		$label = $item["label"] ?? null;
+		$required = isset($item["required"]) && (int)$item["required"] === 1 ? "required validate[required]" : null;
+		$file_key = $item["file_key"] ?? null;
+		$show_image_label_text = $item["show_image_label_text"] ?? "Mevcut Dosya ->";
+		$delete_link = $item["delete_link"] ?? null;
 		$html = '<div class="form-group">
                         <label for="id_' . $name_lang . '">' . $label . '</label>
                         <div class="input-group">

@@ -86,9 +86,9 @@ class FileUploader
 	/**
 	 * For gallery file upload
 	 *
-	 * @var int
+	 * @var null|int
 	 */
-	public int $galleryId;
+	public ?int $galleryId = NULL;
 
 
 	/**
