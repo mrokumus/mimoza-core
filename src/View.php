@@ -15,6 +15,7 @@ class View
 	 */
 	public static function layout(string $view, array $data = null, string $layout = 'main')
 	{
+		global $constants;
 		global $metaTag;
 		global $functions;
 		global $settings;
