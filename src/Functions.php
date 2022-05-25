@@ -528,7 +528,7 @@ class Functions
 	{
 		$result = null;
 		if (strlen($text) > $limit) {
-			$result .= $this->kisalt($text, $limit);
+			$result .= $this->shorten($text, $limit);
 			$uniq = uniqid('un-', true) . time();
 			$result .= '  <i class="' . $icon . ' ml-2 table-modal-icon" data-toggle="modal" data-target="#page_modal_' . $uniq . '"></i>';
 			$result .= '<div id="page_modal_' . $uniq . '" class="modal fade" tabindex="-1">
