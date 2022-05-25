@@ -9,7 +9,7 @@ class Core
 	 * @param $index
 	 * @return false|mixed
 	 */
-	public function route($index)
+	public function route(string $index)
 	{
 		global $route;
 		return $route[$index] ?? false;
@@ -31,7 +31,7 @@ class Core
 	 * @param $controllerName
 	 * @return string
 	 */
-	public function adminController($controllerName): string
+	public function adminController(string $controllerName): string
 	{
 		$controllerName = strtolower($controllerName);
 		return ROOT_PATH . '/admin/Controller/' . $controllerName . '.php';
@@ -64,7 +64,7 @@ class Core
 	 * @param string $url
 	 * @return string
 	 */
-	public function publicUrl(string $url = ''): string
+	public function publicUrl(?string $url = ''): string
 	{
 		global $settings;
 		return SITE_URL . '/public/' . $settings->theme . '/' . $url;
@@ -74,17 +74,17 @@ class Core
 	 * @param string $url
 	 * @return string
 	 */
-	public function adminPublicUrl(string $url = ''): string
+	public function adminPublicUrl(?string $url = ''): string
 	{
 		return SITE_URL . '/vendor/ozansonar/mimoza-panel-file/' . $url;
 	}
 
-	public function urlWithoutLanguage($url = ''): string
+	public function urlWithoutLanguage(?string $url = ''): string
 	{
 		return SITE_URL . '/' . $url;
 	}
 
-	public function url(string $url = ""): string
+	public function url(?string $url = ""): string
 	{
 		if (defined("MULTIPLE_LANGUAGE")) {
 			return SITE_URL . "/" . $_SESSION["lang"] . "/" . $url;
@@ -96,7 +96,7 @@ class Core
 	 * @param string $url
 	 * @return string
 	 */
-	public function adminUrl(string $url = ''): string
+	public function adminUrl(?string $url = ''): string
 	{
 		return SITE_URL . '/admin/' . $url;
 	}
@@ -107,7 +107,7 @@ class Core
 	 * @param string $filePath
 	 * @return string
 	 */
-	public function path(string $filePath = ''): string
+	public function path(?string $filePath = ''): string
 	{
 		return ROOT_PATH . '/' . $filePath;
 	}
