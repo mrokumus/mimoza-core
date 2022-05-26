@@ -24,11 +24,16 @@ class Functions
 	 */
 	public function dateLong($date): ?string
 	{
+		global $months;
 		if (empty($date)) {
 			return null;
 		}
 		$date = new DateTime($date);
-		return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y");
+		try {
+			return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y");
+		} catch (\Exception $e) {
+			return 'ERROR';
+		}
 	}
 
 	/**
@@ -54,10 +59,17 @@ class Functions
 	 * @return string
 	 * @throws Exception
 	 */
-	public function dateLongWithTime($date): string
+	public function dateLongWithTime($date): ?string
 	{
+		if (empty($date)) {
+			return NULL;
+		}
 		$date = new DateTime($date);
-		return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y") . " " . $date->format("H") . ":" . $date->format("i");
+		try {
+			return $date->format("d") . " " . Constants::months[$_SESSION["lang"]]["long"][$date->format("m")] . ", " . $date->format("Y") . " " . $date->format("H") . ":" . $date->format("i");
+		} catch (\Exception $e) {
+			return 'ERROR';
+		}
 	}
 
 	/**
