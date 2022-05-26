@@ -49,6 +49,7 @@ class Core
 		return ROOT_PATH . '/app/View/' . $settings->theme . '/' . $viewName . '.php';
 	}
 
+
 	/**
 	 * @param $viewName
 	 * @return string
@@ -61,7 +62,7 @@ class Core
 	/**
 	 * It's return public url
 	 *
-	 * @param string $url
+	 * @param string|null $url
 	 * @return string
 	 */
 	public function publicUrl(?string $url = ''): string
@@ -71,7 +72,7 @@ class Core
 	}
 
 	/**
-	 * @param string $url
+	 * @param string|null $url
 	 * @return string
 	 */
 	public function adminPublicUrl(?string $url = ''): string
@@ -93,7 +94,7 @@ class Core
 	}
 
 	/**
-	 * @param string $url
+	 * @param string|null $url
 	 * @return string
 	 */
 	public function adminUrl(?string $url = ''): string

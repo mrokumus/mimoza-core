@@ -12,6 +12,7 @@ class Mail
 {
 	private Database $database;
 	private Functions $functions;
+	private Core $system;
 	public string $address;
 	public string $subject;
 	public string $message;
@@ -24,11 +25,12 @@ class Mail
 	{
 		$this->database = $database;
 		$this->functions = new Functions();
+		$this->system = new Core();
 	}
 
 	public function send()
 	{
-		global $fileTypePath, $settings;
+		global $settings;
 		if (empty($this->sender_name)) {
 			$this->sender_name = $settings->smtp_send_name_surname;
 		}
@@ -62,17 +64,16 @@ class Mail
 
 
 			//maile ait sabit resim yükleniyor
-			if (!empty($settings->mail_tempate_logo) && file_exists($fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo)) {
-				$mail->addEmbeddedImage($fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo, "img_header", $settings->mail_tempate_logo);
+			if (!empty($settings->mail_tempate_logo) && file_exists(Constants::fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo)) {
+				$mail->addEmbeddedImage(Constants::fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo, "img_header", $settings->mail_tempate_logo);
 			}
 
 			// Content
 			$mail->isHTML();
 
 			//mail teması
-			include_once $this->functions->root_url("includes/MailTemplate/MailTemplate.php");
-
-			$mailTemplate = str_replace(array("[MESSAGE]", "[SITE_URL]", "[SITE_URL]"), array($this->message, $this->functions->site_url(), $this->functions->site_url_lang()), $mailTemplate);
+			include_once $this->system->path("includes/MailTemplate/MailTemplate.php");
+			$mailTemplate = str_replace(array("[MESSAGE]", "[SITE_URL]", "[SITE_URL]"), array($this->message, $this->system->url(), $this->system->url()), $mailTemplate);
 			$mail->Subject = $settings->project_name . $this->subject;
 			$mail->Body = $mailTemplate;
 			$mail->send();
@@ -93,7 +94,7 @@ class Mail
 	 */
 	public function sendMailing(int $id): array
 	{
-		global $fileTypePath, $settings;
+		global $settings;
 		$result = [];
 		//gönderilecek mailingi seçelim
 		$query = $this->database::query("SELECT * FROM mailing WHERE id=:id AND status=1 AND deleted=0");
@@ -124,7 +125,7 @@ class Mail
 			$mailing_user_count = $mailing_user->rowCount();
 			$mailing_user_data = $mailing_user->fetch(PDO::FETCH_OBJ);
 
-			if (!$this->functions->is_email($mailing_user_data->email)) {
+			if (!$this->functions->isEmail($mailing_user_data->email)) {
 				//geçersiz maili sil
 				$mail_delete = $this->database::query("UPDATE mailing_user SET deleted=1 WHERE id=:id");
 				$mail_delete->bindParam(":id", $mailing_user_data->id, PDO::PARAM_INT);
@@ -164,12 +165,12 @@ class Mail
 				//Set an alternative reply-to address
 				$mail->addReplyTo($settings->smtp_send_email_reply_adres, $settings->smtp_send_name_surname);
 
-				$mail->setLanguage($_SESSION["lang"], $this->functions->root_url("vendor/phpmailer/language/"));
+				$mail->setLanguage($_SESSION["lang"], $this->system->url("vendor/phpmailer/language/"));
 				$this->subject = $query_data->subject;
 				$mail->Subject = $this->subject;
 
 				//mail teması
-				include_once $this->functions->root_url("includes/MailTemplate/MailTemplate.php");
+				include_once $this->system->path("includes/MailTemplate/MailTemplate.php");
 				$body = $mailTemplate;
 
 				$mailBody = $query_data->text;
@@ -179,7 +180,7 @@ class Mail
 					foreach ($image_decode as $image_key => $image_row) {
 
 						if (strpos($mailBody, "image_" . $image_key) !== false) {
-							$mail->addEmbeddedImage($fileTypePath["mailing"]["full_path"] . $image_row, "image_" . $image_key, $image_row);
+							$mail->addEmbeddedImage(Constants::fileTypePath["mailing"]["full_path"] . $image_row, "image_" . $image_key, $image_row);
 
 						}
 					}
@@ -188,20 +189,20 @@ class Mail
 				$this->message = $mailBody;
 
 				//maile ait sabit resim yükleniyor
-				if (!empty($settings->mail_tempate_logo) && file_exists($fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo)) {
-					$mail->addEmbeddedImage($fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo, "img_header", $settings->mail_tempate_logo);
+				if (!empty($settings->mail_tempate_logo) && file_exists(Constants::fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo)) {
+					$mail->addEmbeddedImage(Constants::fileTypePath["project_image"]["full_path"] . $settings->mail_tempate_logo, "img_header", $settings->mail_tempate_logo);
 				}
 
 				//ekler ekleniyor
 				if (!empty($query_data->attachment)) {
 					$mailing_attachment = unserialize($query_data->attachment);
 					foreach ($mailing_attachment as $m_attachment) {
-						if (file_exists($fileTypePath["mailing_attachment"]["full_path"] . $m_attachment)) {
-							$mail->addAttachment($fileTypePath["mailing_attachment"]["full_path"] . $m_attachment, $m_attachment);
+						if (file_exists(Constants::fileTypePath["mailing_attachment"]["full_path"] . $m_attachment)) {
+							$mail->addAttachment(Constants::fileTypePath["mailing_attachment"]["full_path"] . $m_attachment, $m_attachment);
 						}
 					}
 				}
-				$body = str_replace(array("[MESSAGE]", "[AD]", "[SOYAD]", "[SITE_URL]"), array($this->message, $mailing_user_data->name, $mailing_user_data->surname, $this->functions->site_url_lang()), $body);
+				$body = str_replace(array("[MESSAGE]", "[AD]", "[SOYAD]", "[SITE_URL]"), array($this->message, $mailing_user_data->name, $mailing_user_data->surname, $this->system->url()), $body);
 
 				//Same body for all messages, so set this before the sending loop
 				//If you generate a different body for each recipient (e.g. you're using a templating system),
