@@ -337,7 +337,7 @@ class Mail
 	}
 
 	/**
-	 * @param $query_data
+	 * @param object $query_data
 	 * @param array $result
 	 * @return array
 	 */
