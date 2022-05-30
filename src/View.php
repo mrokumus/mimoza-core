@@ -6,6 +6,41 @@ class View
 {
 
 	/**
+	 * It's return view
+	 *
+	 * @param string $view view name
+	 * @return string view path
+	 */
+	private static function view(string $view): string
+	{
+		global $settings;
+		return ROOT_PATH . '/app/View/' . $settings->theme . '/' . $view . '.php';
+	}
+
+	/**
+	 * It's return view
+	 *
+	 * @param string $view view name
+	 * @return string view path
+	 */
+	private static function backendView(string $view): string
+	{
+		return ROOT_PATH . '/admin/View/project/' . $view . '.php';
+	}
+
+	/**
+	 * It's return error view
+	 *
+	 * @param int $errorCode
+	 * @return string
+	 */
+	private static function errorView(int $errorCode)
+	{
+		global $settings;
+		return ROOT_PATH . '/app/View/errors/' . $errorCode . '.php';
+	}
+
+	/**
 	 * It's return layout
 	 *
 	 * @param string $view
@@ -35,18 +70,6 @@ class View
 	}
 
 	/**
-	 * It's return view
-	 *
-	 * @param string $view view name
-	 * @return string view path
-	 */
-	public static function view(string $view): string
-	{
-		global $settings;
-		return ROOT_PATH . '/app/View/' . $settings->theme . '/' . $view . '.php';
-	}
-
-	/**
 	 * It's return layout
 	 *
 	 * @param string $view
@@ -56,6 +79,7 @@ class View
 	 */
 	public static function backend(string $view, array $data = null, string $layout = 'main')
 	{
+
 		if (!isset($_SESSION['theme'])) {
 			$_SESSION['theme'] = 'light-layout';
 		}
@@ -79,8 +103,11 @@ class View
 		global $editPermissionKey;
 		global $deletePermissionKey;
 		global $projectLanguages;
+		global $form;
 		global $admin_text;
 		global $constants;
+		global $userHeaderTopImg;
+		global $menu;
 		$form = new AdminForm();
 
 		$data['theme'] = $_SESSION['theme'];
@@ -90,14 +117,26 @@ class View
 	}
 
 	/**
-	 * It's return view
+	 * It's return error layout
 	 *
-	 * @param string $view view name
-	 * @return string view path
+	 * @param string $view
+	 * @param array|null $data
+	 * @param string $layout
+	 * @return mixed
 	 */
-	public static function backendView(string $view): string
+	public static function error(int $errorCode, array $data = null, string $layout = 'error')
 	{
-		return ROOT_PATH . '/admin/View/project/' . $view . '.php';
+
+		if (!isset($_SESSION['theme'])) {
+			$_SESSION['theme'] = 'light-layout';
+		}
+
+		global $settings;
+		global $system;
+		$data['view'] = self::errorView($errorCode);
+		$data = (object)$data;
+		return require ROOT_PATH . "/app/View/layouts/{$layout}.php";
 	}
+
 
 }
