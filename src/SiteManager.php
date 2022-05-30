@@ -21,6 +21,13 @@ class SiteManager
 	private Functions $functions;
 
 	/**
+	 * Core class
+	 *
+	 * @var Core
+	 */
+	private Core $system;
+
+	/**
 	 * Constructor
 	 *
 	 * @param Database $database
@@ -29,6 +36,7 @@ class SiteManager
 	{
 		$this->database = $database;
 		$this->functions = new Functions();
+		$this->system = new Core();
 	}
 
 	/**
@@ -59,7 +67,7 @@ class SiteManager
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">';
 				foreach ($sub_nav_data as $sub) {
 					$navbar .= '<li>
-                            <a class="dropdown-item" href="' . ((int)$sub->redirect === 1 ? $sub->redirect_link : $this->functions->site_url_lang($sub->link)) . '" target="' . ((int)$sub->redirect === 1 && (int)$sub->redirect_open_type === 1 ? "_blank" : "_self") . '">
+                            <a class="dropdown-item" href="' . ((int)$sub->redirect === 1 ? $sub->redirect_link : $this->system->url($sub->link)) . '" target="' . ((int)$sub->redirect === 1 && (int)$sub->redirect_open_type === 1 ? "_blank" : "_self") . '">
                                 ' . $sub->name . '
                             </a>
                         </li>';
@@ -69,7 +77,7 @@ class SiteManager
                     </li>';
 			} else {
 				$navbar .= '<li class="nav-item">
-                    <a class="nav-link" href="' . ((int)$row->redirect === 1 ? $row->redirect_link : $this->functions->site_url_lang($row->link)) . '" target="' . ((int)$row->redirect === 1 && (int)$row->redirect_open_type === 1 ? "_blank" : "_self") . '">
+                    <a class="nav-link" href="' . ((int)$row->redirect === 1 ? $row->redirect_link : $this->system->url($row->link)) . '" target="' . ((int)$row->redirect === 1 && (int)$row->redirect_open_type === 1 ? "_blank" : "_self") . '">
                         ' . $row->name . '
                     </a>
                 </li>';
