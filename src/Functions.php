@@ -541,9 +541,10 @@ class Functions
 		$result = null;
 		if (strlen($text) > $limit) {
 			$result .= $this->shorten($text, $limit);
-			$uniq = uniqid('un-', true) . time();
+			$uniq = uniqid(false) . time();
 			$result .= '  <i class="' . $icon . ' ml-2 table-modal-icon" data-toggle="modal" data-target="#page_modal_' . $uniq . '"></i>';
-			$result .= '<div id="page_modal_' . $uniq . '" class="modal fade" tabindex="-1">
+			$result .= '<!-- Basic modal -->
+                            <div id="page_modal_' . $uniq . '" class="modal fade" tabindex="-1">
                                 <div class="modal-dialog  modal-lg modal-dialog-centered modal-dialog-scrollable">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -558,7 +559,8 @@ class Functions
                                         </div>
                                     </div>
                                 </div>
-                            </div>';
+                            </div>
+                        <!-- /basic modal -->';
 		} else {
 			$result = $text;
 		}
