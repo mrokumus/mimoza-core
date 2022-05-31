@@ -33,6 +33,7 @@ class AdminForm
 	{
 		$this->functions = new Functions();
 	}
+
 	/**
 	 * It's return HTML input according to giving options
 	 *
@@ -399,9 +400,9 @@ class AdminForm
 			$id = "id_" . $name_lang;
 			$check_value = $item["value"];
 			$value = !empty($data) && isset($data[$this->lang][$item["name"]]) ? $data[$this->lang][$item["name"]] : null;
-			$checkbox .= '<div class="form-check form-check-inline">
+			$checkbox .= '<div class="icheck-primary d-inline">
                         <input type="checkbox" class="form-check-input" name="' . $name_lang . '" id="' . $id . '" value="' . $check_value . '" ' . ($value === $check_value ? "checked" : null) . '>
-                        <label for="' . $id . '" class="form-check-label">
+                        <label for="' . $id . '" class="form-check-label user-select-none">
                           ' . $item["label"] . '
                         </label>
                       </div>';
