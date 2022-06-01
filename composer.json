@@ -21,7 +21,8 @@
     "verot/class.upload.php": "^2.1",
     "ext-curl": "*",
     "ext-ctype": "*",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-iconv": "*"
   }
   ,
   "require-dev": {
