@@ -499,11 +499,10 @@ class Functions
 	 */
 	public function phoneFormat($number, string $countryCode = '+90')
 	{
-
 		if (ctype_digit($number) && strlen($number) === 10) {
-			$number = $countryCode . substr($number, 0, 3) . ' ' . substr($number, 3, 3) . ' ' . substr($number, 6, 2) . ' ' . substr($number, 8, 2);
+			return $countryCode .' '. substr($number, 0, 3) . ' ' . substr($number, 3, 3) . ' ' . substr($number, 6, 2) . ' ' . substr($number, 8, 2);
 		} else if (ctype_digit($number) && strlen($number) === 7) {
-			$number = substr($number, 0, 3) . ' ' . substr($number, 3, 4);
+			return substr($number, 0, 3) . ' ' . substr($number, 3, 4);
 		}
 		return $number;
 	}
