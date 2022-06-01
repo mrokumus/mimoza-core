@@ -34,7 +34,7 @@ class View
 	 * @param int $errorCode
 	 * @return string
 	 */
-	private static function errorView(int $errorCode)
+	private static function errorView(int $errorCode): string
 	{
 		global $settings;
 		return ROOT_PATH . '/app/View/errors/' . $errorCode . '.php';
@@ -63,6 +63,8 @@ class View
 		global $socialMedia;
 		global $message;
 		global $menuItems;
+		global $form;
+		$form = new Form();
 
 		$data['view'] = self::view($view);
 		$data = (object)$data;
