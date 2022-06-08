@@ -401,7 +401,7 @@ class AdminForm
 			$check_value = $item["value"];
 			$value = !empty($data) && isset($data[$this->lang][$item["name"]]) ? $data[$this->lang][$item["name"]] : null;
 			$checkbox .= '<div class="icheck-primary d-inline">
-                        <input type="checkbox" class="form-check-input" name="' . $name_lang . '" id="' . $id . '" value="' . $check_value . '" ' . ($value === $check_value ? "checked" : null) . '>
+                        <input type="checkbox" class="form-check-input" name="' . $name_lang . '" id="' . $id . '" value="' . $check_value . '" ' . ((int)$value === (int)$check_value ? "checked" : null) . '>
                         <label for="' . $id . '" class="form-check-label user-select-none">
                           ' . $item["label"] . '
                         </label>

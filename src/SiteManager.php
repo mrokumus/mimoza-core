@@ -161,6 +161,20 @@ class SiteManager
 	}
 
 	/**
+	 * It's return content url
+	 *
+	 * @param object $content
+	 * @return string
+	 *
+	 */
+	public function createContentUrl(object $content): string
+	{
+		global $settings;
+		[$countQuery, $category] = $this->getCategory($content->cat_id);
+		return $this->system->url($settings->{"content_prefix_" . $_SESSION["lang"]} . "/" . $category->link . '-'.$category->id . "/" . $content->link . "-" . $content->id);
+	}
+
+	/**
 	 * $table tablosunda $columun kolununnda $data yı arar ve var olan değerleri döndürür
 	 *
 	 * @param string $table

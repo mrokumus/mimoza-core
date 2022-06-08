@@ -6,7 +6,7 @@ class Core
 {
 
 	/**
-	 * @param $index
+	 * @param string $index
 	 * @return false|mixed
 	 */
 	public function route(string $index)
@@ -28,7 +28,7 @@ class Core
 	}
 
 	/**
-	 * @param $controllerName
+	 * @param string $controllerName
 	 * @return string
 	 */
 	public function adminController(string $controllerName): string
@@ -87,11 +87,18 @@ class Core
 
 	public function url(?string $url = ""): string
 	{
+		if ($url === '/') {
+			if (defined("MULTIPLE_LANGUAGE")) {
+				return SITE_URL . "/" . $_SESSION["lang"];
+			}
+			return SITE_URL;
+		}
 		if (defined("MULTIPLE_LANGUAGE")) {
 			return SITE_URL . "/" . $_SESSION["lang"] . "/" . $url;
 		}
 		return SITE_URL . "/" . $url;
 	}
+
 
 	/**
 	 * @param string|null $url
