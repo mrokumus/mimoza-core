@@ -169,15 +169,20 @@ class Session
 	 * Returns a user whose email was given
 	 *
 	 * @param string $email
-	 * @return array
+	 * @return object|null
 	 */
 	public function userControl(string $email): ?object
 	{
 		$userMail = $this->isThatAnEmail($email);
-		return $this->database::selectQuery("users", array(
+		$user = $this->database::selectQuery("users", array(
 			"email" => $userMail,
 			"deleted" => 0,
 		), true);
+
+		if (empty($user)) {
+			return null;
+		}
+		return $user;
 	}
 
 	/**
