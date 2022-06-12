@@ -29,7 +29,7 @@ class Log
 			$this->addLogType($logType);
 		}
 
-		if ($this->checkLogType($logType)) {
+		if ($this->check($logType)) {
 			//sunucuda php_browscap.ini aktif ise daha okunaklı browser bilgisi alınabilir.
 			if (function_exists('get_browser')) {
 				$browser = array();
@@ -136,15 +136,32 @@ class Log
 		return false;
 	}
 
-	private function checkLogType(string $logValue): bool
+	private function check(string $logValue): bool
 	{
 		$dbLogValue = $this->database::selectQuery('log_types', ['log_key' => $logValue], true);
 		if (!empty($dbLogValue->log_key)) {
 			return true;
 		}
-		return false;
+
 	}
-	
+
+	private function checkLogType(string $log_val)
+	{
+		$db_connection = $this->database::$db;
+		$query = $db_connection->prepare('SELECT * FROM log_types WHERE log_val=:log_val');
+		$query->bindParam(':log_val', $log_val);
+		$query->execute();
+		$row = $query->fetch(PDO::FETCH_ASSOC);
+
+		if ($query->rowCount() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+
 	private function getOs(): string
 	{
 		$user_agent = $_SERVER['HTTP_USER_AGENT'];
