@@ -142,16 +142,9 @@ class Log
 		if (!empty($dbLogValue->log_key)) {
 			return true;
 		}
-
-		$result = $this->addLogType($logValue);
-
-		if ($result) {
-			return true;
-		}
 		return false;
-
 	}
-
+	
 	private function getOs(): string
 	{
 		$user_agent = $_SERVER['HTTP_USER_AGENT'];
